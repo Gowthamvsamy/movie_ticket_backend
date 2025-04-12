@@ -1,0 +1,29 @@
+const express = require("express");
+const { createDbConnection } = require("./dbConnection");
+const cors = require("cors");
+const mongoose = require('mongoose');
+const registerControll = require('./controller/user.controller');
+const loginController = require('./controller/login.controll')
+
+const API_SERVER = express();
+
+require('dotenv').config();
+
+// Middleware
+API_SERVER.use(cors());
+API_SERVER.use(express.json());
+
+//controllers injections
+API_SERVER.use('/register', registerControll);
+API_SERVER.use('/login', loginController);
+
+// DB connection
+createDbConnection()
+    .then(() => console.log('Connected to MongoDB'))
+    .catch((error) => console.error('Error connecting to MongoDB:', error));
+
+
+API_SERVER.listen(process.env.PORT, process.env.HOSTNAME, function () {
+    console.log("server start");
+    console.log(`http://${process.env.HOSTNAME}:${process.env.PORT}`);
+})
