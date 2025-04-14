@@ -4,6 +4,7 @@ const cors = require("cors");
 const mongoose = require('mongoose');
 const registerControll = require('./controller/user.controller');
 const loginController = require('./controller/login.controll')
+const movieController = require('./controller/movies.controll')
 
 const API_SERVER = express();
 
@@ -16,6 +17,7 @@ API_SERVER.use(express.json());
 //controllers injections
 API_SERVER.use('/register', registerControll);
 API_SERVER.use('/login', loginController);
+API_SERVER.use('/movies', movieController)
 
 // DB connection
 createDbConnection()
