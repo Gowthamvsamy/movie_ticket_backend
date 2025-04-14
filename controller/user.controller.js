@@ -6,9 +6,9 @@ const userRouter = require("express").Router();
 //Register user
 userRouter.post('/', async (req, res) => {
     try {
-        const { user_ID, username, email, password, createdAt, updatedAt } = req.body;
+        const { username, email, password, createdAt, updatedAt } = req.body;
 
-        const newUser = new userModel({ user_ID, username, email, password, createdAt, updatedAt });
+        const newUser = new userModel({ username, email, password, createdAt, updatedAt });
         await newUser.save();
 
         return res.status(201).json({
