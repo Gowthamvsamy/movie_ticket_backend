@@ -1,9 +1,13 @@
 //import 
 const mongoose = require("mongoose");
 const bcrypt = require('bcrypt');
+const Counter = require('./Counter');
 
 //schema
 const userSchema = new mongoose.Schema({
+    user_ID: {
+        type: Number,
+    },
     username: {
         type: 'String',
         required: true,
@@ -31,8 +35,25 @@ const userSchema = new mongoose.Schema({
 
 //Hashing password before saving it to the database
 userSchema.pre('save', async function (next) {
-    if (!this.isModified('password')) return next();
-    this.password = await bcrypt.hash(this.password, 10);
+    const doc = this;
+
+    if (doc.isNew && (doc.user_ID === undefined || doc.user_ID === null)) {
+        try {
+            const counter = await Counter.findByIdAndUpdate(
+                { _id: 'user_ID' },
+                { $inc: { sequence_value: 1 } },
+                { new: true, upsert: true }
+            );
+            doc.user_ID = counter.sequence_value;
+        } catch (err) {
+            return next(err);
+        }
+    }
+
+    if (doc.isModified('password')) {
+        doc.password = await bcrypt.hash(doc.password, 10);
+    }
+
     next();
 });
 
