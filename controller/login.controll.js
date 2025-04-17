@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const User = require('../models/user.models');
+const { generateToken } = require('../jwt.utils');
 
 //Router
 const loginRouter = require("express").Router();
@@ -24,7 +25,11 @@ loginRouter.post('/', async (req, res) => {
 
         if (isPasswordValid) {
 
+            // Generate token
+            const token = generateToken({ id: user._id, username: user.username });
+
             return res.status(200).json({
+                token: token,
                 message: 'User logged in successfully',
             });
         } else {
