@@ -9,9 +9,9 @@ const bookingSchema = mongoose.Schema({
     place: { type: String },
     date: { type: String },
     time: { type: String },
-    price: { type: Number },
+    price: { type: String },
     screen: { type: String },
-    seats: [{ type: String }],
+    seats: { type: String },
     isBooked: {type: Boolean, default: true},
 
 })
