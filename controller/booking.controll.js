@@ -25,5 +25,16 @@ bookingRouter.post('/', async (req, res) => {
     }
 });
 
+// get method
+bookingRouter.get('/getBooking', async (req, res) => {
+    try {
+        const booking = await BookingModel.find();
+        res.json(booking);
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({err: 'Something went wrong'})
+    }
+});
+
 //export
 module.exports = bookingRouter;
