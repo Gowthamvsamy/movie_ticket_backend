@@ -36,5 +36,44 @@ bookingRouter.get('/getBooking', async (req, res) => {
     }
 });
 
+// patch method
+// patch method to update only "isBooked"
+bookingRouter.patch('/updateBooking/:id', async (req, res) => {
+    const { id } = req.params;
+    const { isBooked } = req.body;
+
+    if (typeof isBooked !== 'boolean') {
+        return res.status(400).json({
+            message: '"isBooked" must be a boolean value'
+        });
+    }
+
+    try {
+        const updatedBooking = await BookingModel.findByIdAndUpdate(
+            id,
+            { isBooked },
+            { new: true }
+        );
+
+        if (!updatedBooking) {
+            return res.status(404).json({
+                message: 'Booking not found'
+            });
+        }
+
+        res.status(200).json({
+            message: 'Booking status updated successfully',
+            success: true,
+            data: updatedBooking
+        });
+    } catch (err) {
+        res.status(500).json({
+            message: 'Error updating booking status',
+            error: err.message
+        });
+    }
+});
+
+
 //export
 module.exports = bookingRouter;
