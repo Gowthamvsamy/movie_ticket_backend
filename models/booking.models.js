@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 const bookingSchema = mongoose.Schema({
 
+    poster: { type: String },
     certified: { type: String },
     language: { type: String },
     title: { type: String },
@@ -12,7 +13,7 @@ const bookingSchema = mongoose.Schema({
     price: { type: String },
     screen: { type: String },
     seats: { type: String },
-    isBooked: {type: Boolean, default: true},
+    isBooked: { type: Boolean, default: true },
 
 })
 

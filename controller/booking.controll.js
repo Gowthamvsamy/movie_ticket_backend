@@ -7,9 +7,9 @@ const bookingRouter = require("express").Router();
 // post method
 bookingRouter.post('/', async (req, res) => {
     try {
-        const {certified, language, title, theatre, place, date, time, price, screen, seats, isBooked } = req.body;
+        const { poster, certified, language, title, theatre, place, date, time, price, screen, seats, isBooked } = req.body;
 
-        const newBooking = new BookingModel({certified, language, title, theatre, place, date, time, price, screen, seats, isBooked});
+        const newBooking = new BookingModel({ poster, certified, language, title, theatre, place, date, time, price, screen, seats, isBooked });
         await newBooking.save();
 
         return res.status(201).json({
@@ -32,7 +32,7 @@ bookingRouter.get('/getBooking', async (req, res) => {
         res.json(booking);
     } catch (err) {
         console.log(err);
-        res.status(500).json({err: 'Something went wrong'})
+        res.status(500).json({ err: 'Something went wrong' })
     }
 });
 
