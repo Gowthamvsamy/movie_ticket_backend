@@ -14,6 +14,7 @@ const bookingSchema = mongoose.Schema({
     screen: { type: String },
     seats: { type: String },
     isBooked: { type: Boolean, default: true },
+    user_id: {type: String},
 
 })
 

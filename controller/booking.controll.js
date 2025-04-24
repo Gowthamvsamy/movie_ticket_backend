@@ -7,9 +7,9 @@ const bookingRouter = require("express").Router();
 // post method
 bookingRouter.post('/', async (req, res) => {
     try {
-        const { poster, certified, language, title, theatre, place, date, time, price, screen, seats, isBooked } = req.body;
+        const { user_id, poster, certified, language, title, theatre, place, date, time, price, screen, seats, isBooked } = req.body;
 
-        const newBooking = new BookingModel({ poster, certified, language, title, theatre, place, date, time, price, screen, seats, isBooked });
+        const newBooking = new BookingModel({ user_id, poster, certified, language, title, theatre, place, date, time, price, screen, seats, isBooked });
         await newBooking.save();
 
         return res.status(201).json({
