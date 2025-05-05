@@ -15,6 +15,7 @@ const bookingSchema = mongoose.Schema({
     seats: { type: String },
     isBooked: { type: Boolean, default: true },
     user_id: {type: String},
+    discountedPrice: {type: String},
 
 })
 
