@@ -40,7 +40,7 @@ bookingRouter.get('/getBooking', async (req, res) => {
 // patch method to update only "isBooked"
 bookingRouter.patch('/updateBooking/:id', async (req, res) => {
     const { id } = req.params;
-    const { isBooked, user_id, discountedPrice } = req.body;
+    const { isBooked, user_id, discountedPrice, refund } = req.body;
 
     if (typeof isBooked !== 'boolean') {
         return res.status(400).json({
@@ -51,7 +51,7 @@ bookingRouter.patch('/updateBooking/:id', async (req, res) => {
     try {
         const updatedBooking = await BookingModel.findByIdAndUpdate(
             id,
-            { isBooked, user_id, discountedPrice },
+            { isBooked, user_id, discountedPrice, refund },
             { new: true }
         );
 
