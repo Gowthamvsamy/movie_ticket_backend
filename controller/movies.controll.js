@@ -9,8 +9,8 @@ movieRouter.get('/', async (req, res) => {
     const movieList = await Movies.find();
     res.json(movieList);
   } catch (error) {
-    console.error(error);
     res.status(500).json({ error: 'Something went wrong' });
+    console.error(error);
   }
 });
 
