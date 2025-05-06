@@ -34,7 +34,6 @@ walletRouter.get('/getWallet', async (req, res) => {
             message: 'Something went wrong',
             error: err.message
         });
-        res.status(500).json({ error: 'Something went wrong' });
     }
 });
 
