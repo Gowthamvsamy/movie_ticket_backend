@@ -37,6 +37,21 @@ walletRouter.get('/getWallet', async (req, res) => {
     }
 });
 
+// get method using user_id
+walletRouter.get('/getWallet/:user_id', async (req, res) => {
+    const {user_id} = req.params;
+
+    try {
+        const wallet = await Wallet.findOne({user_id});
+        if (!wallet) {
+          return res.status(404).json({ message: 'Wallet not found' });
+        }
+        res.json(wallet);
+      } catch (err) {
+        res.status(500).json({ message: 'Server error', error: err.message });
+      }
+})
+
 // Patch wallet
 walletRouter.patch('/updateWallet/:id', async (req, res) => {
     const { id } = req.params;
